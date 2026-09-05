@@ -1,0 +1,407 @@
+{
+  "resourceType": "Bundle",
+  "id": "b8425635-f161-42d4-a1fd-95f5c713e95d",
+  "meta": {
+    "lastUpdated": "2026-09-03T15:59:07.319-04:00"
+  },
+  "type": "searchset",
+  "link": [
+    {
+      "relation": "self",
+      "url": "https://hapi.fhir.org/baseR4?_getpages=b8425635-f161-42d4-a1fd-95f5c713e95d&_getpagesoffset=10&_count=10&_format=json&_pretty=true&_bundletype=searchset"
+    },
+    {
+      "relation": "next",
+      "url": "https://hapi.fhir.org/baseR4?_getpages=b8425635-f161-42d4-a1fd-95f5c713e95d&_getpagesoffset=20&_count=10&_format=json&_pretty=true&_bundletype=searchset"
+    },
+    {
+      "relation": "previous",
+      "url": "https://hapi.fhir.org/baseR4?_getpages=b8425635-f161-42d4-a1fd-95f5c713e95d&_getpagesoffset=0&_count=10&_format=json&_pretty=true&_bundletype=searchset"
+    }
+  ],
+  "entry": [
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/137202573",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "137202573",
+        "meta": {
+          "versionId": "2",
+          "lastUpdated": "2026-07-20T09:24:36.050-04:00",
+          "source": "#5PHkvtw7JXq4zmuE"
+        },
+        "status": "final",
+        "code": {
+          "text": "Blood Pressure"
+        },
+        "subject": {
+          "reference": "Patient/137202532"
+        },
+        "valueQuantity": {
+          "value": 110,
+          "unit": "mmHg"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/137202577",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "137202577",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-07-20T09:27:58.641-04:00",
+          "source": "#KUTSPyycZX6H0emg"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "activity",
+                "display": "Activity"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/physical-activity/CodeSystem/pa-temporary-codes",
+                "code": "PhysicalActivity"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "89555-7",
+              "display": "Days per week of moderate-to-vigorous physical activity"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/137202567"
+        },
+        "encounter": {
+          "reference": "Encounter/137202568"
+        },
+        "effectiveDateTime": "2026-07-20T13:27:58.145Z",
+        "valueQuantity": {
+          "value": 2,
+          "unit": "d/wk",
+          "system": "http://unitsofmeasure.org",
+          "code": "d/wk"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/137202578",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "137202578",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-07-20T09:27:58.641-04:00",
+          "source": "#KUTSPyycZX6H0emg"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "activity",
+                "display": "Activity"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/physical-activity/CodeSystem/pa-temporary-codes",
+                "code": "PhysicalActivity"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "68516-4",
+              "display": "Minutes per day of moderate-to-vigorous physical activity"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/137202567"
+        },
+        "encounter": {
+          "reference": "Encounter/137202568"
+        },
+        "effectiveDateTime": "2026-07-20T13:27:58.145Z",
+        "valueQuantity": {
+          "value": 10,
+          "unit": "min/d",
+          "system": "http://unitsofmeasure.org",
+          "code": "min/d"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/137202579",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "137202579",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-07-20T09:27:58.641-04:00",
+          "source": "#KUTSPyycZX6H0emg"
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "activity",
+                "display": "Activity"
+              }
+            ]
+          },
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/physical-activity/CodeSystem/pa-temporary-codes",
+                "code": "PhysicalActivity"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "82291-6",
+              "display": "Days per week of muscle-strengthening physical activity"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/137202567"
+        },
+        "encounter": {
+          "reference": "Encounter/137202568"
+        },
+        "effectiveDateTime": "2026-07-20T13:27:58.145Z",
+        "valueQuantity": {
+          "value": 1,
+          "unit": "d/wk",
+          "system": "http://unitsofmeasure.org",
+          "code": "d/wk"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/137202651",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "137202651",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-07-20T10:50:28.053-04:00",
+          "source": "#Yn8nokLbmjpsSDxt"
+        },
+        "status": "final",
+        "code": {
+          "text": "Blood Pressure"
+        },
+        "subject": {
+          "reference": "Patient/137202645"
+        },
+        "valueQuantity": {
+          "value": 120,
+          "unit": "mmHg"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/137202656",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "137202656",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-07-20T10:52:24.480-04:00",
+          "source": "#mFSPBym7MDHjd7ng"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/137202645"
+        },
+        "valueQuantity": {
+          "value": 37,
+          "unit": "C"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/137202692",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "137202692",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-07-20T11:23:25.404-04:00",
+          "source": "#zul2C2KUD4uU57Zu"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body Weight"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/137202693"
+        },
+        "effectiveDateTime": "2026-07-19T22:35:00Z",
+        "valueQuantity": {
+          "value": 71,
+          "unit": "kg",
+          "system": "http://unitsofmeasure.org",
+          "code": "kg"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/137202697",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "137202697",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-07-20T11:26:59.118-04:00",
+          "source": "#CNnwSWAMbqO8eQRW"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "29463-7",
+              "display": "Body Weight"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/137202693"
+        },
+        "effectiveDateTime": "2026-07-19T22:35:00Z",
+        "valueQuantity": {
+          "value": 70,
+          "unit": "kg",
+          "system": "http://unitsofmeasure.org",
+          "code": "kg"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/137202699",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "137202699",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-07-20T11:34:58.577-04:00",
+          "source": "#6VKJMBE8zeTyhZzi"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body temperature"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/137202695"
+        },
+        "valueQuantity": {
+          "value": 37,
+          "unit": "C"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Observation/137202700",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "137202700",
+        "meta": {
+          "versionId": "1",
+          "lastUpdated": "2026-07-20T11:36:27.569-04:00",
+          "source": "#oHWvT6zJpH93ROkU"
+        },
+        "status": "final",
+        "code": {
+          "text": "Blood Pressure"
+        },
+        "subject": {
+          "reference": "Patient/137202644"
+        },
+        "valueQuantity": {
+          "value": 120,
+          "unit": "mmHg"
+        }
+      },
+      "search": {
+        "mode": "match"
+      }
+    }
+  ]
+}

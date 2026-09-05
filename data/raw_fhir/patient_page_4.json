@@ -1,0 +1,407 @@
+{
+  "resourceType": "Bundle",
+  "id": "3c91c38b-a344-4b06-857e-9d97435c0eb4",
+  "meta": {
+    "lastUpdated": "2026-09-03T15:59:03.622-04:00"
+  },
+  "type": "searchset",
+  "link": [
+    {
+      "relation": "self",
+      "url": "https://hapi.fhir.org/baseR4?_getpages=3c91c38b-a344-4b06-857e-9d97435c0eb4&_getpagesoffset=30&_count=10&_format=json&_pretty=true&_bundletype=searchset"
+    },
+    {
+      "relation": "next",
+      "url": "https://hapi.fhir.org/baseR4?_getpages=3c91c38b-a344-4b06-857e-9d97435c0eb4&_getpagesoffset=40&_count=10&_format=json&_pretty=true&_bundletype=searchset"
+    },
+    {
+      "relation": "previous",
+      "url": "https://hapi.fhir.org/baseR4?_getpages=3c91c38b-a344-4b06-857e-9d97435c0eb4&_getpagesoffset=20&_count=10&_format=json&_pretty=true&_bundletype=searchset"
+    }
+  ],
+  "entry": [
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/sindhu-syn-000036",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "sindhu-syn-000036",
+        "meta": {
+          "versionId": "6",
+          "lastUpdated": "2026-07-31T02:45:12.904-04:00",
+          "source": "#C75WT8HzGJLAXRKr",
+          "tag": [
+            {
+              "system": "https://sindhu-ecrf.local/tags",
+              "code": "sindhu-synthetic-40"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://sindhu-ecrf.local/synthetic-patient-id",
+            "value": "SYN-000036"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "text": "Synthetic Patient SYN-000036",
+            "family": "SYN-000036",
+            "given": [
+              "Synthetic"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1962-01-01"
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/sindhu-syn-000037",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "sindhu-syn-000037",
+        "meta": {
+          "versionId": "6",
+          "lastUpdated": "2026-07-31T02:45:12.904-04:00",
+          "source": "#C75WT8HzGJLAXRKr",
+          "tag": [
+            {
+              "system": "https://sindhu-ecrf.local/tags",
+              "code": "sindhu-synthetic-40"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://sindhu-ecrf.local/synthetic-patient-id",
+            "value": "SYN-000037"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "text": "Synthetic Patient SYN-000037",
+            "family": "SYN-000037",
+            "given": [
+              "Synthetic"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "2001-01-01"
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/sindhu-syn-000038",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "sindhu-syn-000038",
+        "meta": {
+          "versionId": "6",
+          "lastUpdated": "2026-07-31T02:45:12.904-04:00",
+          "source": "#C75WT8HzGJLAXRKr",
+          "tag": [
+            {
+              "system": "https://sindhu-ecrf.local/tags",
+              "code": "sindhu-synthetic-40"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://sindhu-ecrf.local/synthetic-patient-id",
+            "value": "SYN-000038"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "text": "Synthetic Patient SYN-000038",
+            "family": "SYN-000038",
+            "given": [
+              "Synthetic"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1993-01-01"
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/sindhu-syn-000039",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "sindhu-syn-000039",
+        "meta": {
+          "versionId": "6",
+          "lastUpdated": "2026-07-31T02:45:12.904-04:00",
+          "source": "#C75WT8HzGJLAXRKr",
+          "tag": [
+            {
+              "system": "https://sindhu-ecrf.local/tags",
+              "code": "sindhu-synthetic-40"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://sindhu-ecrf.local/synthetic-patient-id",
+            "value": "SYN-000039"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "text": "Synthetic Patient SYN-000039",
+            "family": "SYN-000039",
+            "given": [
+              "Synthetic"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1944-01-01"
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/sindhu-syn-000040",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "sindhu-syn-000040",
+        "meta": {
+          "versionId": "6",
+          "lastUpdated": "2026-07-31T02:45:12.904-04:00",
+          "source": "#C75WT8HzGJLAXRKr",
+          "tag": [
+            {
+              "system": "https://sindhu-ecrf.local/tags",
+              "code": "sindhu-synthetic-40"
+            }
+          ]
+        },
+        "identifier": [
+          {
+            "system": "https://sindhu-ecrf.local/synthetic-patient-id",
+            "value": "SYN-000040"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "text": "Synthetic Patient SYN-000040",
+            "family": "SYN-000040",
+            "given": [
+              "Synthetic"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1971-01-01"
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/rural-elder-001",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "rural-elder-001",
+        "meta": {
+          "versionId": "6",
+          "lastUpdated": "2026-07-31T02:45:12.904-04:00",
+          "source": "#C75WT8HzGJLAXRKr",
+          "tag": [
+            {
+              "system": "https://example.org/tags",
+              "code": "class-demo",
+              "display": "\u8ab2\u5802\u5c55\u793a\u8cc7\u6599"
+            }
+          ]
+        },
+        "active": false,
+        "name": [
+          {
+            "use": "official",
+            "text": "\u8ab2\u5802\u5c55\u793a\u9577\u8005"
+          }
+        ],
+        "gender": "unknown",
+        "birthDate": "1948-01-01"
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/ses-mt-ana",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "ses-mt-ana",
+        "meta": {
+          "versionId": "6",
+          "lastUpdated": "2026-07-31T02:45:12.904-04:00",
+          "source": "#C75WT8HzGJLAXRKr"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Ana <b>SILVA </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>ana</td></tr><tr><td>Address</td><td><span>Cuiab\u00e1 </span><span>MT </span><span>BR </span></td></tr><tr><td>Date of birth</td><td><span>17 May 1990</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "http://exemplo.org/fhir/id/curso",
+            "value": "ana"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "family": "Silva",
+            "given": [
+              "Ana"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1990-05-17",
+        "address": [
+          {
+            "city": "Cuiab\u00e1",
+            "state": "MT",
+            "country": "BR"
+          }
+        ],
+        "generalPractitioner": [
+          {
+            "reference": "Practitioner/ses-mt-medica"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/ses-mt-bruno",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "ses-mt-bruno",
+        "meta": {
+          "versionId": "6",
+          "lastUpdated": "2026-07-31T02:45:12.904-04:00",
+          "source": "#C75WT8HzGJLAXRKr"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Bruno <b>SOUZA </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>bruno</td></tr><tr><td>Address</td><td><span>V\u00e1rzea Grande </span><span>MT </span><span>BR </span></td></tr><tr><td>Date of birth</td><td><span>02 August 1985</span></td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "http://exemplo.org/fhir/id/curso",
+            "value": "bruno"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "family": "Souza",
+            "given": [
+              "Bruno"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1985-08-02",
+        "address": [
+          {
+            "city": "V\u00e1rzea Grande",
+            "state": "MT",
+            "country": "BR"
+          }
+        ]
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/ses-mt-carla",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "ses-mt-carla",
+        "meta": {
+          "versionId": "6",
+          "lastUpdated": "2026-07-31T02:45:12.904-04:00",
+          "source": "#C75WT8HzGJLAXRKr"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Carla <b>PEREIRA </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Identifier</td><td>carla</td></tr></tbody></table></div>"
+        },
+        "identifier": [
+          {
+            "system": "http://exemplo.org/fhir/id/curso",
+            "value": "carla"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "family": "Pereira",
+            "given": [
+              "Carla"
+            ]
+          }
+        ],
+        "gender": "female"
+      },
+      "search": {
+        "mode": "match"
+      }
+    },
+    {
+      "fullUrl": "https://hapi.fhir.org/baseR4/Patient/unite-barry-basset",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "unite-barry-basset",
+        "meta": {
+          "versionId": "6",
+          "lastUpdated": "2026-07-31T02:45:12.904-04:00",
+          "source": "#C75WT8HzGJLAXRKr"
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div class=\"hapiHeaderText\">Barry <b>BASSET </b></div><table class=\"hapiPropertyTable\"><tbody><tr><td>Date of birth</td><td><span>11 March 1974</span></td></tr></tbody></table></div>"
+        },
+        "active": false,
+        "name": [
+          {
+            "use": "official",
+            "family": "Basset",
+            "given": [
+              "Barry"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1974-03-11"
+      },
+      "search": {
+        "mode": "match"
+      }
+    }
+  ]
+}
