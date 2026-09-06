@@ -63,6 +63,18 @@ nhs_fhir_pipeline/
 
 </details>
 
+<details>
+<summary><b>Day 3: FHIR Schema Inspection & Relational Mapping</b></summary>
+
+* **Objective:** Inspect nested FHIR JSON resources (`Patient` and `Observation`) and map specific keys to relational database column equivalents.
+* **Key Achievements:**
+  * Developed `scripts/03_inspect_fhir.py` to parse raw JSON bundles stored in the Data Lake (`data/raw_fhir/`).
+  * Mapped Patient demographics: `id` → `patient_fhir_id`, `gender` → `gender`, and `birthDate` → `birth_date`.
+  * Navigated complex nested objects in Observations: extracted LOINC codes from `code.coding[0].code` and clinical measurements from `valueQuantity`.
+  * Implemented defensive list and dictionary lookups to handle missing optional fields cleanly.
+
+</details>
+
 ##  Quick Start
 
     Clone the repository:
