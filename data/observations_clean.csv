@@ -1,0 +1,51 @@
+obs_id,patient_reference,loinc_code,display_name,result_value,unit,effective_datetime
+137202489,Patient/137202428,8310-5,Body temperature,37,C,N/A
+137202559,Patient/137202558,8480-6,Systolic blood pressure,120,mm[Hg],2026-07-20T13:17:02.2998158+00:00
+137202560,Patient/137202558,8462-4,Diastolic blood pressure,80,mm[Hg],2026-07-20T13:17:02.2998158+00:00
+137202561,Patient/137202558,8867-4,Heart rate,72,/min,2026-07-20T13:17:02.2998158+00:00
+137202562,Patient/137202558,2708-6,Oxygen saturation,98,%,2026-07-20T13:17:02.2998158+00:00
+137202563,Patient/137202558,29463-7,Body weight,70,kg,2026-07-20T13:17:02.2998158+00:00
+137202564,Patient/137202558,8302-2,Body height,175,cm,2026-07-20T13:17:02.2998158+00:00
+137202565,Patient/137202558,39156-5,Body mass index,22.9,kg/m2,2026-07-20T13:17:02.2998158+00:00
+137202566,Patient/137202558,72514-3,Pain severity score,3,{score},2026-07-20T13:17:02.2998158+00:00
+137202551,Patient/137202440,85354-9,Blood pressure panel with all children optional,N/A,N/A,N/A
+137202573,Patient/137202532,N/A,N/A,110,mmHg,N/A
+137202577,Patient/137202567,89555-7,Days per week of moderate-to-vigorous physical activity,2,d/wk,2026-07-20T13:27:58.145Z
+137202578,Patient/137202567,68516-4,Minutes per day of moderate-to-vigorous physical activity,10,min/d,2026-07-20T13:27:58.145Z
+137202579,Patient/137202567,82291-6,Days per week of muscle-strengthening physical activity,1,d/wk,2026-07-20T13:27:58.145Z
+137202651,Patient/137202645,N/A,N/A,120,mmHg,N/A
+137202656,Patient/137202645,8310-5,Body temperature,37,C,N/A
+137202692,Patient/137202693,29463-7,Body Weight,71,kg,2026-07-19T22:35:00Z
+137202697,Patient/137202693,29463-7,Body Weight,70,kg,2026-07-19T22:35:00Z
+137202699,Patient/137202695,8310-5,Body temperature,37,C,N/A
+137202700,Patient/137202644,N/A,N/A,120,mmHg,N/A
+137202701,Patient/137202695,N/A,N/A,120,mmHg,N/A
+137202703,Patient/137202644,8310-5,Body temperature,37,C,N/A
+137202691,Patient/137202655,8310-5,Body temperature,38.5,C,N/A
+137202719,Patient/137122647,9279-1,Respiratory rate,18,/min,2026-07-18
+ix-test-obs-001,Patient/ix-test-patient-001,majority-pain-score,Majority pain score,N/A,N/A,N/A
+137202746,Patient/137202745,N/A,N/A,120,mmHg,N/A
+137202753,Patient/137202750,N/A,N/A,8.2,%,N/A
+137202754,Patient/137202750,N/A,N/A,150.0,mmHg,N/A
+137202755,Patient/137202750,N/A,N/A,78.0,beats/min,N/A
+137202758,Patient/137202745,8310-5,Body temperature,37,C,N/A
+137202762,Patient/137202440,85354-9,Blood pressure panel with all children optional,N/A,N/A,N/A
+137202769,Patient/137202440,85354-9,Blood pressure panel with all children optional,N/A,N/A,N/A
+137203490,Patient/137203458,8310-5,Body temperature,37,C,N/A
+137203505,Location/smart-location-uv36yz1rv,76585-1,Particulate matter [Mass/volume] in Air,35.2,ug/m3,2026-07-21T03:00:00Z
+137203506,Location/smart-location-uv36yz1rv,76585-1,Particulate matter [Mass/volume] in Air,48.6,ug/m3,2026-07-20T08:00:00Z
+137203507,Location/smart-location-uv36yz1rv,76585-1,Particulate matter [Mass/volume] in Air,33.7,ug/m3,2026-07-20T10:00:00Z
+137203508,Location/smart-location-uv36yz1rv,76585-1,Particulate matter [Mass/volume] in Air,58.5,ug/m3,2026-07-20T12:00:00Z
+137203509,Location/smart-location-uv36yz1rv,76585-1,Particulate matter [Mass/volume] in Air,49.0,ug/m3,2026-07-20T14:00:00Z
+137203510,Location/smart-location-uv36yz1rv,76585-1,Particulate matter [Mass/volume] in Air,35.8,ug/m3,2026-07-20T16:00:00Z
+137203511,Location/smart-location-uv36yz1rv,76585-1,Particulate matter [Mass/volume] in Air,53.8,ug/m3,2026-07-20T18:00:00Z
+137203512,Location/smart-location-uv36yz1rv,76585-1,Particulate matter [Mass/volume] in Air,16.9,ug/m3,2026-07-20T20:00:00Z
+137203513,Location/smart-location-uv36yz1rv,76585-1,Particulate matter [Mass/volume] in Air,30.1,ug/m3,2026-07-20T22:00:00Z
+137203520,Location/smart-location-uv36yz1rv,98240-5,Particulate matter <2.5 um [Mass/Volume] in Air,100,ug/m3,2026-07-20T19:16:53.257Z
+137203524,Patient/137203519,exam-finding,N/A,N/A,N/A,2026-07-20T19:21:46.042Z
+137203526,Patient/137203519,exam-finding,N/A,N/A,N/A,2026-07-20T19:22:04.073Z
+137203528,Patient/137203519,exam-finding,N/A,N/A,N/A,2026-07-20T19:22:15.907Z
+137203550,Location/smart-location-uv36yz1rv,98240-5,Particulate matter <2.5 um [Mass/Volume] in Air,1,ug/m3,2026-07-20T20:09:26.174Z
+137203680,Patient/131351884,82810-3,Status ciąży,N/A,N/A,2024-10-06T10:04:48+02:00
+137203682,Patient/131351884,91391-3,Mental health diagnosis,N/A,N/A,N/A
+137203693,Patient/131351884,72166-2,Tobacco smoking status,N/A,N/A,N/A
