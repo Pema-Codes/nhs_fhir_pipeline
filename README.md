@@ -75,6 +75,29 @@ nhs_fhir_pipeline/
 
 </details>
 
+<details>
+<summary><b>Day 4: Staging Patient Demographics Parser</b></summary>
+
+* **Objective:** Build a dedicated ETL script to parse raw Patient JSON bundles into flat tabular structures.
+* **Key Achievements:**
+  * Developed `scripts/04_parse_patients.py` to extract 50 patient demographic records into `data/patients_clean.csv`.
+  * Navigated nested FHIR JSON fields including `id`, `gender`, `birthDate`, and `address[0].postalCode`.
+  * Implemented defensive `.get()` lookups to handle missing optional fields safely and avoid execution errors.
+
+</details>
+
+<details>
+<summary><b>Day 5: Clinical Telemetry & LOINC Observation Parser</b></summary>
+
+* **Objective:** Parse raw FHIR Observation JSON resources to extract clinical measurements, standardized LOINC codes, values, units, and timestamps.
+* **Key Achievements:**
+  * Created `scripts/05_parse_observations.py` to batch-process clinical telemetry into `data/observations_clean.csv`.
+  * Extracted LOINC codes (`code.coding[0].code`) and clinical measurement values/units (`valueQuantity`).
+  * Linked clinical observations to patient entities via `subject.reference` foreign keys.
+  * Preserved temporal metadata (`effectiveDateTime`) to support time-series clinical reporting.
+
+</details>
+
 ##  Quick Start
 
     Clone the repository:
