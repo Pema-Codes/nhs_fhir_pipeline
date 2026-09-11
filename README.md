@@ -98,6 +98,18 @@ nhs_fhir_pipeline/
 
 </details>
 
+<details>
+<summary><b>Day 6: Information Governance & Automated Error Logging</b></summary>
+
+* **Objective:** Implement data validation rules to log malformed FHIR records and enforce Information Governance (IG) standards.
+* **Key Achievements:**
+  * Created `scripts/06_parse_with_governance.py` featuring automated exception handling and logging.
+  * Configured Python `logging` module to capture validation failures (missing `id` or unlinked `subject.reference`) into `logs/fhir_ingestion_errors.log`.
+  * Ensured pipeline resilience by skipping invalid records without halting batch processing execution.
+  * Verified local clean CSV exports for clinical auditing.
+
+</details>
+
 ##  Quick Start
 
     Clone the repository:
