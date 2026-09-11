@@ -49,3 +49,13 @@ ix-test-obs-001,Patient/ix-test-patient-001,majority-pain-score,Majority pain sc
 137203680,Patient/131351884,82810-3,Status ciąży,N/A,N/A,2024-10-06T10:04:48+02:00
 137203682,Patient/131351884,91391-3,Mental health diagnosis,N/A,N/A,N/A
 137203693,Patient/131351884,72166-2,Tobacco smoking status,N/A,N/A,N/A
+137202489,Patient/137202428,8310-5,Body temperature,37,C,N/A
+137202559,Patient/137202558,8480-6,Systolic blood pressure,120,mm[Hg],2026-07-20T13:17:02.2998158+00:00
+137202560,Patient/137202558,8462-4,Diastolic blood pressure,80,mm[Hg],2026-07-20T13:17:02.2998158+00:00
+137202561,Patient/137202558,8867-4,Heart rate,72,/min,2026-07-20T13:17:02.2998158+00:00
+137202562,Patient/137202558,2708-6,Oxygen saturation,98,%,2026-07-20T13:17:02.2998158+00:00
+137202563,Patient/137202558,29463-7,Body weight,70,kg,2026-07-20T13:17:02.2998158+00:00
+137202564,Patient/137202558,8302-2,Body height,175,cm,2026-07-20T13:17:02.2998158+00:00
+137202565,Patient/137202558,39156-5,Body mass index,22.9,kg/m2,2026-07-20T13:17:02.2998158+00:00
+137202566,Patient/137202558,72514-3,Pain severity score,3,{score},2026-07-20T13:17:02.2998158+00:00
+137202551,Patient/137202440,85354-9,Blood pressure panel with all children optional,N/A,N/A,N/A
