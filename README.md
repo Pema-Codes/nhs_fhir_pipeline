@@ -7,8 +7,9 @@ A local data engineering pipeline designed to extract, batch-process, and stage 
 ## Tech Stack & Healthcare Standards
 
 * **Clinical Standards:** HL7 FHIR (R4), LOINC Terminology, SNOMED CT
-* **Languages & Libraries:** Python 3, requests, json, os, time
-* **Tools & Environment:** Git, GitHub, VS Code
+* **Database & SQL:** SQLite 3, ANSI SQL Schema Design (DDL)
+* **Languages & Libraries:** Python 3, Pandas, requests, json, sqlite3, os, logging
+* **Tools & Environment:** Git, GitHub, VS Code, SQLite Viewer
 
 ---
 
@@ -17,12 +18,24 @@ A local data engineering pipeline designed to extract, batch-process, and stage 
 ```text
 nhs_fhir_pipeline/
 ├── data/
-│   └── raw_fhir/                # Raw Staging Layer / Data Lake
-│       ├── patient_page_1.json ... patient_page_5.json
-│       └── observation_page_1.json ... observation_page_5.json
+│   ├── raw_fhir/                  # Immutable Data Lake Staging Layer
+│   │   ├── patient_page_1.json ... patient_page_5.json
+│   │   └── observation_page_1.json ... observation_page_5.json
+│   ├── patients_clean.csv         # Cleaned Patient Demographics
+│   ├── observations_clean.csv     # Cleaned LOINC Observations
+│   └── nhs_fhir_staging.db        # Relational Staging Database (Git Ignored)
+├── sql/
+│   └── 01_schema_ddl.sql          # Relational DDL Schema & Indexes
 ├── scripts/
-│   ├── 01_fetch_fhir.py         # Single-resource API extractor
-│   └── 02_batch_download_fhir.py# Automated link-header pagination pipeline
+│   ├── 01_fetch_fhir.py           # Single-resource API extractor
+│   ├── 02_batch_download_fhir.py  # Automated link-header pagination pipeline
+│   ├── 03_inspect_fhir.py         # FHIR JSON schema explorer
+│   ├── 04_parse_patients.py       # Patient JSON to CSV ETL parser
+│   ├── 05_parse_observations.py   # Observation JSON to CSV ETL parser
+│   ├── 06_parse_with_governance.py# Information Governance & error logger
+│   └── 07_load_to_sqlite.py       # Automated SQLite relational loader
+├── logs/
+│   └── fhir_ingestion_errors.log  # Audit trail for invalid records
 └── README.md
 ```
 ## Key Pipeline Features
@@ -34,6 +47,12 @@ nhs_fhir_pipeline/
 **Data Lake Staging Layer:** Stores unparsed raw JSON payloads in data/raw_fhir/ to maintain an immutable audit trail and prevent redundant API load during development.
 
 **Resilient API Handling:** Built with robust defensive code, using non-crashing .get() lookup logic, network error handling (try/except), and rate-limiting delays (time.sleep) for API etiquette.
+
+**Information Governance & Audit Logging:** Features automated exception handling via Python's logging module to capture validation failures (missing IDs, unlinked references) without crashing batch processing.
+
+**Relational Schema Integrity:** Enforces relational constraints (PRIMARY KEY, FOREIGN KEY, NOT NULL, ON DELETE CASCADE) in SQLite to ensure clinical observations link cleanly to valid patient entities and LOINC terms.
+
+**Defensive ETL Staging:** Uses Pandas deduplication and string normalization (Patient/ and urn:uuid: removal) to handle real-world clinical data noise prior to database insertion.
 
 ---
 
@@ -137,10 +156,13 @@ nhs_fhir_pipeline/
     git clone [https://github.com/Pema-Codes/nhs_fhir_pipeline.git](https://github.com/Pema-Codes/nhs_fhir_pipeline.git)
     cd nhs_fhir_pipeline
 
-    Run single-resource extractor:
-    
-    python scripts/01_fetch_fhir.py
+    Run the full automated pipeline:
 
-    Run automated batch pagination pipeline:
-
+    # Step 1: Download raw FHIR JSON bundles to data lake
     python scripts/02_batch_download_fhir.py
+
+    # Step 2: Parse and sanitize CSV staging files with governance logging
+    python scripts/06_parse_with_governance.py
+
+    # Step 3: Execute schema DDL and load relational SQLite database
+    python scripts/07_load_to_sqlite.py
