@@ -111,13 +111,22 @@ nhs_fhir_pipeline/
 </details>
 
 <details>
-<summary><b>Day 7: Relational Staging Database Schema Design</b></summary>
+<summary><b>Day 7: Relational Database Design & Ingestion Engine</b></summary>
 
-* **Objective:** Design an ANSI SQL-compliant DDL schema to stage FHIR patient demographics and clinical observations in a relational SQLite database.
+#### Part 1: Schema Architecture (`sql/01_schema_ddl.sql`)
+* **Objective:** Design an ANSI SQL-compliant relational schema to stage FHIR patient demographics, clinical observations, and terminology lookup codes.
 * **Key Achievements:**
-  * Created `sql/01_schema_ddl.sql` establishing normalized tables (`fhir_patients`, `fhir_observations`, `terminology_lookup`).
-  * Enforced primary and foreign key constraints to maintain referential integrity across resources.
-  * Created indexes on patient and LOINC foreign keys to accelerate query performance.
+  * Created `fhir_patients`, `fhir_observations`, and `terminology_lookup` tables with explicit Primary Key constraints.
+  * Defined Foreign Key relationships with `ON DELETE CASCADE` rules to guarantee relational integrity between observations, patients, and LOINC codes.
+  * Added performance indexes (`idx_obs_patient`, `idx_obs_loinc`) to optimize SQL join performance.
+
+#### Part 2: Automated SQLite Ingestion & Data Integrity (`scripts/07_load_to_sqlite.py`)
+* **Objective:** Build an automated ETL loader to parse clean CSVs, handle constraint edge cases, and populate `data/nhs_fhir_staging.db`.
+* **Key Achievements:**
+  * Handled `sqlite3.IntegrityError` by implementing Pandas deduplication (`drop_duplicates`) across patient and observation primary keys.
+  * Sanitized patient reference strings (`Patient/` and `urn:uuid:`) to ensure foreign key alignment.
+  * Dynamically populated `terminology_lookup` with default fallback handling for missing display names to satisfy `NOT NULL` constraints.
+  * Verified successful pipeline staging: 51 Patients, 21 LOINC Terminology mappings, and 50 Clinical Observations.
 
 </details>
 
