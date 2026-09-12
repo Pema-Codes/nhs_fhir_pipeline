@@ -110,6 +110,17 @@ nhs_fhir_pipeline/
 
 </details>
 
+<details>
+<summary><b>Day 7: Relational Staging Database Schema Design</b></summary>
+
+* **Objective:** Design an ANSI SQL-compliant DDL schema to stage FHIR patient demographics and clinical observations in a relational SQLite database.
+* **Key Achievements:**
+  * Created `sql/01_schema_ddl.sql` establishing normalized tables (`fhir_patients`, `fhir_observations`, `terminology_lookup`).
+  * Enforced primary and foreign key constraints to maintain referential integrity across resources.
+  * Created indexes on patient and LOINC foreign keys to accelerate query performance.
+
+</details>
+
 ##  Quick Start
 
     Clone the repository:
