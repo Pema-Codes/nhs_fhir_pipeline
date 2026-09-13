@@ -148,9 +148,10 @@ nhs_fhir_pipeline/
 
 </details>
 
-### Day 8: SQLAlchemy Migration & Constraint Enforcement
+<details>
+<summary><b>Day 8: SQLAlchemy Migration & Constraint Enforcement</b></summary>
 
-* **Objective:**Upgrade the staging ingestion layer from raw `sqlite3` to **SQLAlchemy** (`scripts/08_load_to_sql.py`) for enterprise connection pooling and transaction management.
+* **Objective:** Upgrade the staging ingestion layer from raw `sqlite3` to **SQLAlchemy** (`scripts/08_load_to_sql.py`) for enterprise connection pooling and transaction management.
 
 * **Key Achievements:**
 * **Automated Reset:** Integrated `initialize_database()` using `DROP TABLE IF EXISTS` in a transaction block to maintain pipeline idempotency.
