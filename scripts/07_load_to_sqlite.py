@@ -1,61 +1,93 @@
 import os
-import sqlite3
 import pandas as pd
+from sqlalchemy import create_engine, text
 
-DB_PATH = os.path.join("data", "nhs_fhir_staging.db")
-DDL_PATH = os.path.join("sql", "01_schema_ddl.sql")
-PATIENTS_CSV = os.path.join("data", "patients_clean.csv")
-OBSERVATIONS_CSV = os.path.join("data", "observations_clean.csv")
+print("Starting SQLAlchemy ingestion pipeline...")
+
+# 1. Define File Paths
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB_PATH = os.path.join(BASE_DIR, "data", "nhs_fhir_staging.db")
+PATIENTS_CSV = os.path.join(BASE_DIR, "data", "patients_clean.csv")
+OBSERVATIONS_CSV = os.path.join(BASE_DIR, "data", "observations_clean.csv")
+SCHEMA_SQL = os.path.join(BASE_DIR, "sql", "01_schema_ddl.sql")
+
+# 2. Create SQLAlchemy Engine
+engine = create_engine(f"sqlite:///{DB_PATH}", echo=False)
 
 
-def build_database():
-    if os.path.exists(DB_PATH):
-        os.remove(DB_PATH)
+def initialize_database():
+    """Drops existing tables and initializes a clean DDL schema."""
+    print("Resetting and initializing database schema...")
 
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
+    # Drop existing tables to avoid duplicate constraint errors
+    with engine.connect() as conn:
+        conn.execute(text("PRAGMA foreign_keys = OFF;"))
+        conn.execute(text("DROP TABLE IF EXISTS fhir_observations;"))
+        conn.execute(text("DROP TABLE IF EXISTS terminology_lookup;"))
+        conn.execute(text("DROP TABLE IF EXISTS fhir_patients;"))
+        conn.execute(text("PRAGMA foreign_keys = ON;"))
+        conn.commit()
 
-    # 1. Execute DDL Schema
-    with open(DDL_PATH, "r", encoding="utf-8") as f:
-        cursor.executescript(f.read())
-    print("✓ Schema DDL executed successfully.")
+    # Read and apply DDL statements
+    with open(SCHEMA_SQL, "r", encoding="utf-8") as f:
+        schema_script = f.read()
 
-    # 2. Populate Patients Table
-    df_patients = pd.DataFrame()
-    if os.path.exists(PATIENTS_CSV):
-        df_patients = pd.read_csv(PATIENTS_CSV).drop_duplicates(
-            subset=["patient_fhir_id"]
+    with engine.connect() as conn:
+        conn.execute(text("PRAGMA foreign_keys = ON;"))
+        for statement in schema_script.split(";"):
+            if statement.strip():
+                conn.execute(text(statement))
+        conn.commit()
+    print("Database schema initialized successfully.")
+
+
+def load_data():
+    """Loads clean CSVs into pandas DataFrames and ingests into SQLite via SQLAlchemy."""
+    print("Reading clean staging files...")
+    df_patients = pd.read_csv(PATIENTS_CSV)
+    df_observations = pd.read_csv(OBSERVATIONS_CSV)
+
+    # Deduplicate patients and observations
+    df_patients = df_patients.drop_duplicates(subset=["patient_fhir_id"])
+    df_observations = df_observations.drop_duplicates(subset=["obs_id"])
+
+    # Clean patient_fhir_id references
+    if "patient_reference" in df_observations.columns:
+        df_observations["patient_fhir_id"] = (
+            df_observations["patient_reference"]
+            .astype(str)
+            .str.replace("Patient/", "", regex=False)
+            .str.replace("urn:uuid:", "", regex=False)
         )
-        df_patients.to_sql("fhir_patients", conn, if_exists="append", index=False)
-        print(f"✓ Loaded {len(df_patients)} unique patients into 'fhir_patients'.")
+    elif "patient_fhir_id" in df_observations.columns:
+        df_observations["patient_fhir_id"] = (
+            df_observations["patient_fhir_id"]
+            .astype(str)
+            .str.replace("Patient/", "", regex=False)
+            .str.replace("urn:uuid:", "", regex=False)
+        )
 
-    # 3. Populate Terminology Lookup & Observations Tables
-    if os.path.exists(OBSERVATIONS_CSV):
-        df_obs = pd.read_csv(OBSERVATIONS_CSV)
+    # Extract distinct LOINC terms
+    df_terminology = (
+        df_observations[["loinc_code", "display_name"]]
+        .drop_duplicates(subset=["loinc_code"])
+        .fillna({"display_name": "Unknown Display Name"})
+    )
 
-        # Clean subject reference across all common FHIR formats
-        if "patient_reference" in df_obs.columns:
-            df_obs["patient_fhir_id"] = (
-                df_obs["patient_reference"]
-                .astype(str)
-                .str.replace("Patient/", "", regex=False)
-                .str.replace("urn:uuid:", "", regex=False)
-            )
+    print("Ingesting data via SQLAlchemy...")
 
-        # Build Terminology Lookup Table safely
-        if "loinc_code" in df_obs.columns:
-            df_terms = df_obs[["loinc_code", "display_name", "unit"]].copy()
-            df_terms.rename(columns={"unit": "target_unit"}, inplace=True)
-            df_terms["display_name"] = df_terms["display_name"].fillna(
-                "Unknown Display Name"
-            )
-            df_terms = df_terms.dropna(subset=["loinc_code"]).drop_duplicates(
-                subset=["loinc_code"]
-            )
-            df_terms.to_sql("terminology_lookup", conn, if_exists="append", index=False)
-            print(f"✓ Loaded {len(df_terms)} LOINC codes into 'terminology_lookup'.")
+    with engine.connect() as conn:
+        # 1. Ingest Patients
+        df_patients.to_sql("fhir_patients", con=conn, if_exists="append", index=False)
+        print(f"  └─ Ingested {len(df_patients)} patients into 'fhir_patients'")
 
-        # Clean observation columns matching DDL schema
+        # 2. Ingest Terminology
+        df_terminology.to_sql(
+            "terminology_lookup", con=conn, if_exists="append", index=False
+        )
+        print(f"  └─ Ingested {len(df_terminology)} terms into 'terminology_lookup'")
+
+        # 3. Filter Observations for Foreign Key Integrity
         valid_cols = [
             "obs_id",
             "patient_fhir_id",
@@ -64,17 +96,27 @@ def build_database():
             "unit",
             "effective_datetime",
         ]
-        df_obs_clean = df_obs[
-            [c for c in valid_cols if c in df_obs.columns]
-        ].drop_duplicates(subset=["obs_id"])
+        df_obs_clean = df_observations[
+            [c for c in valid_cols if c in df_observations.columns]
+        ]
 
-        # Load observations directly to avoid dropping valid rows
-        df_obs_clean.to_sql("fhir_observations", conn, if_exists="append", index=False)
-        print(f"✓ Loaded {len(df_obs_clean)} observations into 'fhir_observations'.")
+        # Keep only observations referencing valid patients and LOINC codes
+        valid_patients = set(df_patients["patient_fhir_id"])
+        valid_terms = set(df_terminology["loinc_code"])
 
-    conn.close()
-    print(f"\n--- SUCCESS: Database built at {DB_PATH} ---")
+        df_obs_clean = df_obs_clean[
+            df_obs_clean["patient_fhir_id"].isin(valid_patients)
+            & df_obs_clean["loinc_code"].isin(valid_terms)
+        ]
 
+        # 4. Ingest Validated Observations
+        df_obs_clean.to_sql(
+            "fhir_observations", con=conn, if_exists="append", index=False
+        )
+        print(
+            f"  └─ Ingested {len(df_obs_clean)} validated observations into 'fhir_observations'"
+        )
 
-if __name__ == "__main__":
-    build_database()
+        conn.commit()
+
+    print("Ingestion pipeline complete!")
