@@ -1,14 +1,14 @@
 # HL7 FHIR Interoperability & Data Pipeline
 
-A local data engineering pipeline designed to extract, batch-process, and stage standardized healthcare records from a public HL7 FHIR (R4) REST API. Built to demonstrate clinical data ingestion, API pagination, and Data Lake staging patterns.
+A production-grade local data engineering pipeline designed to extract, batch-process, and stage standardized healthcare records from a HL7 FHIR (R4) REST API into a relational database enforcing strict schema integrity. 
 
 ---
 
 ## Tech Stack & Healthcare Standards
 
-* **Clinical Standards:** HL7 FHIR (R4), LOINC Terminology, SNOMED CT
-* **Database & SQL:** SQLite 3, ANSI SQL Schema Design (DDL)
-* **Languages & Libraries:** Python 3, Pandas, requests, json, sqlite3, os, logging
+* **Healthcare Standards:** HL7 FHIR (R4), LOINC Terminology, SNOMED CT
+* **Database & ORM:** SQLite 3, SQLAlchemy 2.0+, ANSI SQL Schema Design (DDL)
+* **Languages & Libraries:** Python 3.10+, pandas, requests, logging
 * **Tools & Environment:** Git, GitHub, VS Code, SQLite Viewer
 
 ---
@@ -21,8 +21,8 @@ nhs_fhir_pipeline/
 │   ├── raw_fhir/                  # Immutable Data Lake Staging Layer
 │   │   ├── patient_page_1.json ... patient_page_5.json
 │   │   └── observation_page_1.json ... observation_page_5.json
-│   ├── patients_clean.csv         # Cleaned Patient Demographics
-│   ├── observations_clean.csv     # Cleaned LOINC Observations
+│   ├── patients_clean.csv         # Sanitized Patient Demographics
+│   ├── observations_clean.csv     # Sanitized LOINC Observations
 │   └── nhs_fhir_staging.db        # Relational Staging Database (Git Ignored)
 ├── sql/
 │   └── 01_schema_ddl.sql          # Relational DDL Schema & Indexes
@@ -33,26 +33,25 @@ nhs_fhir_pipeline/
 │   ├── 04_parse_patients.py       # Patient JSON to CSV ETL parser
 │   ├── 05_parse_observations.py   # Observation JSON to CSV ETL parser
 │   ├── 06_parse_with_governance.py# Information Governance & error logger
-│   └── 07_load_to_sqlite.py       # Automated SQLite relational loader
+│   ├── 07_load_to_sqlite.py       # Legacy sqlite3 loader
+│   └── 08_load_to_sql.py          # Production SQLAlchemy Ingestion Engine
 ├── logs/
 │   └── fhir_ingestion_errors.log  # Audit trail for invalid records
 └── README.md
 ```
 ## Key Pipeline Features
 
-**Standardized Ingestion:** Programmatically queries FHIR REST API endpoints with explicit Accept: application/fhir+json headers to retrieve valid JSON resources (Patient, Observation).
+**Standardized REST Ingestion:** Queries FHIR REST endpoints using explicit Accept: application/fhir+json headers to retrieve valid JSON resources (Patient, Observation).
 
-**Automated Batch Pagination:** Dynamically traverses FHIR bundle response metadata (link array where "relation": "next") to sequentially harvest multi-page datasets without missing records.
+**Automated Batch Pagination:** Traverses FHIR bundle response metadata (relation: next) to harvest multi-page datasets reliably.
 
-**Data Lake Staging Layer:** Stores unparsed raw JSON payloads in data/raw_fhir/ to maintain an immutable audit trail and prevent redundant API load during development.
+**Immutable Data Lake Layer:** Stores unparsed raw JSON payloads in data/raw_fhir/ to maintain an audit trail and allow offline ETL iteration.
 
-**Resilient API Handling:** Built with robust defensive code, using non-crashing .get() lookup logic, network error handling (try/except), and rate-limiting delays (time.sleep) for API etiquette.
+**Information Governance & Audit Logging:** Employs automated exception handling via Python's logging module to log validation failures (missing IDs, unlinked references) without crashing batch processing.
 
-**Information Governance & Audit Logging:** Features automated exception handling via Python's logging module to capture validation failures (missing IDs, unlinked references) without crashing batch processing.
+**SQLAlchemy Engine & Idempotency:** Manages database transactions via SQLAlchemy engines and managed contexts (with engine.connect() as conn:), running automated schema resets to avoid primary key collisions.
 
-**Relational Schema Integrity:** Enforces relational constraints (PRIMARY KEY, FOREIGN KEY, NOT NULL, ON DELETE CASCADE) in SQLite to ensure clinical observations link cleanly to valid patient entities and LOINC terms.
-
-**Defensive ETL Staging:** Uses Pandas deduplication and string normalization (Patient/ and urn:uuid: removal) to handle real-world clinical data noise prior to database insertion.
+**Strict Referential Integrity Enforcement:** Enforces SQLite schema-level foreign keys (PRAGMA foreign_keys = ON;) and programmatically resolves orphan records prior to ingestion using pandas .isin() filtering and identifier mapping.
 
 ---
 
@@ -149,14 +148,32 @@ nhs_fhir_pipeline/
 
 </details>
 
+### Day 8: SQLAlchemy Migration & Constraint Enforcement
+
+* **Objective:**Upgrade the staging ingestion layer from raw `sqlite3` to **SQLAlchemy** (`scripts/08_load_to_sql.py`) for enterprise connection pooling and transaction management.
+
+* **Key Achievements:**
+* **Automated Reset:** Integrated `initialize_database()` using `DROP TABLE IF EXISTS` in a transaction block to maintain pipeline idempotency.
+* **Referential Integrity Validation:** Enforced strict SQLite foreign keys (`PRAGMA foreign_keys = ON`) and implemented pandas-level `.isin()` validation to align synthetic patient IDs (`sindhu-syn-...`) with observation parent references (`137202...`).
+* **Validated Ingestion Output:**
+  * `fhir_patients`: 51 records loaded
+  * `terminology_lookup`: 22 LOINC terms loaded
+  * `fhir_observations`: 50 validated records loaded
+
+</details>
+
 ##  Quick Start
 
-    Clone the repository:
+    1. Clone the repository:
 
     git clone [https://github.com/Pema-Codes/nhs_fhir_pipeline.git](https://github.com/Pema-Codes/nhs_fhir_pipeline.git)
     cd nhs_fhir_pipeline
 
-    Run the full automated pipeline:
+    2. Activate your Python Virtual Environment:
+
+    .\.venv\Scripts\Activate.ps1
+
+    3. Run the full automated pipeline:
 
     # Step 1: Download raw FHIR JSON bundles to data lake
     python scripts/02_batch_download_fhir.py
@@ -164,5 +181,5 @@ nhs_fhir_pipeline/
     # Step 2: Parse and sanitize CSV staging files with governance logging
     python scripts/06_parse_with_governance.py
 
-    # Step 3: Execute schema DDL and load relational SQLite database
-    python scripts/07_load_to_sqlite.py
+    # Step 3: Execute schema DDL and execute SQLAlchemy ingestion
+    python scripts/08_load_to_sql.py
