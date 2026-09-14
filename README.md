@@ -26,6 +26,7 @@ nhs_fhir_pipeline/
 │   └── nhs_fhir_staging.db        # Relational Staging Database (Git Ignored)
 ├── sql/
 │   └── 01_schema_ddl.sql          # Relational DDL Schema & Indexes
+|   └── 02_fhir_analytics_views.sql  # Clinical timeline & risk view DDL
 ├── scripts/
 │   ├── 01_fetch_fhir.py           # Single-resource API extractor
 │   ├── 02_batch_download_fhir.py  # Automated link-header pagination pipeline
@@ -35,6 +36,8 @@ nhs_fhir_pipeline/
 │   ├── 06_parse_with_governance.py# Information Governance & error logger
 │   ├── 07_load_to_sqlite.py       # Legacy sqlite3 loader
 │   └── 08_load_to_sql.py          # Production SQLAlchemy Ingestion Engine
+│   ├── 09_create_views.py         # SQLAlchemy view execution script
+│   └── 09_audit_views.py          # View verification & reporting script
 ├── logs/
 │   └── fhir_ingestion_errors.log  # Audit trail for invalid records
 └── README.md
@@ -160,6 +163,18 @@ nhs_fhir_pipeline/
   * `fhir_patients`: 51 records loaded
   * `terminology_lookup`: 22 LOINC terms loaded
   * `fhir_observations`: 50 validated records loaded
+
+</details>
+<details>
+<summary><b>Day 9: SQL Interoperability Views & Clinical Analytics</b></summary>
+
+* **Objective:** Design analytical SQL database views to join multi-table FHIR resources and apply clinical decision-support logic.
+
+* **Key Achievements:**
+  * Created `sql/02_fhir_analytics_views.sql` to define the `vw_patient_clinical_timeline` view, joining `fhir_patients`, `fhir_observations`, and `terminology_lookup`.
+  * Implemented automated physiological risk-flagging logic using ANSI SQL `CASE` statements across LOINC measurements (e.g., Blood Pressure, Heart Rate, and BMI).
+  * Built `scripts/09_create_views.py` to execute view DDL definitions idempotently via SQLAlchemy.
+  * Created `scripts/09_audit_views.py` using pandas to query the view, aggregate clinical flag distributions, and verify flag accuracy.
 
 </details>
 
