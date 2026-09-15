@@ -1,14 +1,14 @@
 # HL7 FHIR Interoperability & Data Pipeline
 
-A production-grade local data engineering pipeline designed to extract, batch-process, and stage standardized healthcare records from a HL7 FHIR (R4) REST API into a relational database enforcing strict schema integrity. 
-
+A production-grade local data engineering pipeline designed to extract, batch-process, sanitize, and load standardized healthcare records from a HL7 FHIR (R4) REST API into a relational database enforcing strict schema integrity and clinical decision support visual analytics.
 ---
 
 ## Tech Stack & Healthcare Standards
 
 * **Healthcare Standards:** HL7 FHIR (R4), LOINC Terminology, SNOMED CT
-* **Database & ORM:** SQLite 3, SQLAlchemy 2.0+, ANSI SQL Schema Design (DDL)
-* **Languages & Libraries:** Python 3.10+, pandas, requests, logging
+* **Database, ORM & SQL:** SQLite 3, SQLAlchemy 2.0+, ANSI SQL Schema Design & Views(DDL)
+* **Languages & Libraries:** Python 3.10+, pandas, requests, logging, Streamlit
+* **BI & Presentation:** Streamlit (Python UI), Power BI Desktop (ODBC Integration)
 * **Tools & Environment:** Git, GitHub, VS Code, SQLite Viewer
 
 ---
@@ -38,6 +38,7 @@ nhs_fhir_pipeline/
 │   └── 08_load_to_sql.py          # Production SQLAlchemy Ingestion Engine
 │   ├── 09_create_views.py         # SQLAlchemy view execution script
 │   └── 09_audit_views.py          # View verification & reporting script
+│   └── 10_clinical_dashboard.py   # Interactive Streamlit BI Dashboard
 ├── logs/
 │   └── fhir_ingestion_errors.log  # Audit trail for invalid records
 └── README.md
@@ -55,6 +56,10 @@ nhs_fhir_pipeline/
 **SQLAlchemy Engine & Idempotency:** Manages database transactions via SQLAlchemy engines and managed contexts (with engine.connect() as conn:), running automated schema resets to avoid primary key collisions.
 
 **Strict Referential Integrity Enforcement:** Enforces SQLite schema-level foreign keys (PRAGMA foreign_keys = ON;) and programmatically resolves orphan records prior to ingestion using pandas .isin() filtering and identifier mapping.
+
+**Clinical Decision Support Views:** Integrates LOINC lookup descriptions and applies SQL CASE logic to flag physiological risks (e.g., Blood Pressure, Fever, BMI categories) in `vw_patient_clinical_timeline`.
+
+**Multi-Stakeholder BI Presentation:** Features an interactive Streamlit UI (`10_clinical_dashboard.py`) with automatic cache refreshing (`st.cache_data`) and ISO UTC datetime normalization.
 
 ---
 
@@ -178,6 +183,17 @@ nhs_fhir_pipeline/
 
 </details>
 
+<details>
+<summary><b>Day 10: Clinical Analytics Dashboard & BI Integration</b></summary>
+
+* **Objective:** Connect an interactive visual presentation layer to `vw_patient_clinical_timeline` to monitor clinical risk metrics and verify data pipeline integrity.
+* **Key Achievements:**
+  * Developed a real-time web dashboard in `scripts/10_clinical_dashboard.py` using Streamlit and SQLAlchemy.
+  * Resolved mixed-timezone datetime parsing errors by normalizing `effective_datetime` with `utc=True`.
+  * Implemented real-time caching controls (`st.cache_data`) for efficient SQL view querying.
+  * Architected the analytical view layer (`vw_patient_clinical_timeline`) to be fully ODBC/BI-compatible, enabling direct integration with enterprise tools such as Power BI or Tableau.
+
+</details>
 ##  Quick Start
 
     1. Clone the repository:
@@ -197,5 +213,11 @@ nhs_fhir_pipeline/
     # Step 2: Parse and sanitize CSV staging files with governance logging
     python scripts/06_parse_with_governance.py
 
-    # Step 3: Execute schema DDL and execute SQLAlchemy ingestion
+    # Step 3: Initialize schema DDL and execute SQLAlchemy ingestion
     python scripts/08_load_to_sql.py
+
+    # Step 4: Apply analytics DDL view
+    python scripts/09_create_views.py
+
+    # Step 5: Launch the Streamlit Clinical BI Dashboard
+    streamlit run scripts/10_clinical_dashboard.py
