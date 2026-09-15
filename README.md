@@ -43,6 +43,8 @@ nhs_fhir_pipeline/
 ├── logs/
 │   └── fhir_ingestion_errors.log  # Audit trail for invalid records
 └── README.md
+└── requirements.txt
+
 ```
 ---
 
