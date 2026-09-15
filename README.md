@@ -1,6 +1,7 @@
 # HL7 FHIR Interoperability & Data Pipeline
 
 A production-grade local data engineering pipeline designed to extract, batch-process, sanitize, and load standardized healthcare records from a HL7 FHIR (R4) REST API into a relational database enforcing strict schema integrity and clinical decision support visual analytics.
+
 ---
 
 ## Tech Stack & Healthcare Standards
@@ -43,6 +44,8 @@ nhs_fhir_pipeline/
 │   └── fhir_ingestion_errors.log  # Audit trail for invalid records
 └── README.md
 ```
+---
+
 ## Key Pipeline Features
 
 **Standardized REST Ingestion:** Queries FHIR REST endpoints using explicit Accept: application/fhir+json headers to retrieve valid JSON resources (Patient, Observation).
@@ -190,10 +193,13 @@ nhs_fhir_pipeline/
 * **Key Achievements:**
   * Developed a real-time web dashboard in `scripts/10_clinical_dashboard.py` using Streamlit and SQLAlchemy.
   * Resolved mixed-timezone datetime parsing errors by normalizing `effective_datetime` with `utc=True`.
-  * Implemented real-time caching controls (`st.cache_data`) for efficient SQL view querying.
+  * Implemented real-time caching controls (`st.cache_data`) for efficient SQL view querying. 
   * Architected the analytical view layer (`vw_patient_clinical_timeline`) to be fully ODBC/BI-compatible, enabling direct integration with enterprise tools such as Power BI or Tableau.
 
 </details>
+
+---
+
 ##  Quick Start
 
     1. Clone the repository:
